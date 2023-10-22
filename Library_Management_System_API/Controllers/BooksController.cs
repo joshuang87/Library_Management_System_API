@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Library_Management_System_API.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,32 @@ namespace Library_Management_System_API.Controllers
 				var books = await _dbContext.Books.ToListAsync();
 
 				return Ok(books);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> CreateBook(Book request)
+		{
+			try
+			{
+				var book = new Book
+				{
+					Book_Id = request.Book_Id,
+					Book_Title = request.Book_Title,
+					Author = request.Author,
+					Category_Id = request.Category_Id,
+					Created_Time = DateTime.Now,
+					Updated_Time = DateTime.Now,
+				};
+
+				await _dbContext.AddAsync(book);
+				await _dbContext.SaveChangesAsync();
+
+				return Ok(book);
 			}
 			catch (Exception ex)
 			{
