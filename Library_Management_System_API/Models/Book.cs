@@ -1,7 +1,10 @@
-﻿namespace Library_Management_System_API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Library_Management_System_API.Models
 {
 	public class Book
 	{
+        [Key]
         public string Book_Id { get; set; }
         public string Book_Title { get; set; }
         public string Author { get; set; }
