@@ -15,7 +15,7 @@ namespace Library_Management_System_API.Controllers
 			_dbContext = dbContext;
 		}
 
-		[HttpGet]
+		[HttpGet("GetAll")]
 		public async Task<IActionResult> GetAllBooks()
 		{
 			try
@@ -30,7 +30,7 @@ namespace Library_Management_System_API.Controllers
 			}
 		}
 
-		[HttpPost]
+		[HttpPost("Create")]
 		public async Task<IActionResult> CreateBook(Book request)
 		{
 			try
