@@ -30,6 +30,21 @@ namespace Library_Management_System_API.Controllers
 			}
 		}
 
+		[HttpGet("{id}")]
+		public async Task<ActionResult<Book>> GetBook(string id)
+		{
+			try
+			{
+				var book = await _dbContext.Books.FindAsync(id);
+
+				return book == null ? NotFound() : Ok(book);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
 		[HttpPost("Create")]
 		public async Task<IActionResult> CreateBook(Book request)
 		{
