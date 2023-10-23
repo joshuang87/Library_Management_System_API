@@ -94,5 +94,25 @@ namespace Library_Management_System_API.Controllers
 				return BadRequest();
 			}
 		}
+
+		[HttpDelete("delete/{id}")]
+		public async Task<IActionResult> Delete(string id)
+		{
+			var book = await _dbContext.Books.FindAsync(id);
+
+			if (book == null) return NotFound();
+
+			try
+			{
+				_dbContext.Books.Remove(book);
+				await _dbContext.SaveChangesAsync();
+
+				return NoContent();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 	}
 }
