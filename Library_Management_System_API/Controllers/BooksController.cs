@@ -70,5 +70,29 @@ namespace Library_Management_System_API.Controllers
 				return BadRequest(ex.Message);
 			}
 		}
+
+		[HttpPut("Update/{id}")]
+		public async Task<ActionResult<Book>> Update(string id, Book request)
+		{
+			var bookToUpdate = await _dbContext.Books.FirstOrDefaultAsync(book => book.Book_Id == id);
+
+			if (bookToUpdate == null) return NotFound();
+			
+			bookToUpdate.Book_Title = request.Book_Title;
+			bookToUpdate.Author = request.Author;
+			bookToUpdate.Category_Id = request.Category_Id;
+			bookToUpdate.Updated_Time = DateTime.Now;
+
+			try
+			{
+				await _dbContext.SaveChangesAsync();
+
+				return Ok(bookToUpdate);
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				return BadRequest();
+			}
+		}
 	}
 }
