@@ -56,8 +56,8 @@ namespace Library_Management_System_API.Controllers
 					Book_Title = request.Book_Title,
 					Author = request.Author,
 					Category_Id = request.Category_Id,
-					Created_Time = DateTime.Now,
-					Updated_Time = DateTime.Now,
+					Created_Time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+					Updated_Time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
 				};
 
 				await _dbContext.AddAsync(book);
@@ -81,7 +81,7 @@ namespace Library_Management_System_API.Controllers
 			bookToUpdate.Book_Title = request.Book_Title;
 			bookToUpdate.Author = request.Author;
 			bookToUpdate.Category_Id = request.Category_Id;
-			bookToUpdate.Updated_Time = DateTime.Now;
+			bookToUpdate.Updated_Time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
 			try
 			{
