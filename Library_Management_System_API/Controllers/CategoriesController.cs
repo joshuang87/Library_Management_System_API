@@ -27,5 +27,26 @@ namespace Library_Management_System_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("Create")]
+        public async Task<IActionResult> CreateCategory(Category request)
+        {
+            try
+            {
+                var category = new Category
+                {
+                    Category_Name = request.Category_Name,
+                };
+
+                await _dbContext.AddAsync(category);
+                await _dbContext.SaveChangesAsync();
+
+                return Ok(category);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
